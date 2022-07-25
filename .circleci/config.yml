@@ -212,13 +212,20 @@ jobs:
       - checkout
       # Add ssh keys with fingerprint
       - add_ssh_keys:
-          fingerprints: ["b2:a8:82:53:14:dd:be:09:df:50:b2:34:84:cf:a9:91"]
-      # attach workspace
+          fingerprints: ["f2:0c:84:3c:9f:57:b5:05:90:df:64:fc:1a:95:ed:16"]
+      # install dependencies     
       - run:
           name: Install dependencies
           command: |
             # Your code here
             apk add --update --no-cache tar gzip ansible aws-cli
+
+      # attach workspace        
+      - attach_workspace:
+          at: ~/
+      - restore_cache:
+          keys: [backend-build]      
+      # configure server  
       - run:
           name: Configure server
           command: |
@@ -226,7 +233,9 @@ jobs:
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
             
-      # Here's where you will add some code to rollback on failure      
+      # Here's where you will add some code to rollback on failure  
+      - destroy-environment:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}     
 
 #   run-migrations:
 #     docker:
