@@ -16,7 +16,7 @@ commands:
             echo "Destroying environment: << parameters.workflow_id >>"
             aws cloudformation delete-stack \
             --stack-name udapeople-backend-<<parameters.workflow_id>>
-            #   aws s3 rm s3://udapeople-<<parameters.workflow_id>> --recursive
+            aws s3 rm s3://udapeople-<<parameters.workflow_id>> --recursive
             aws cloudformation delete-stack \
             --stack-name udapeople-frontend-<<parameters.workflow_id>>
             
@@ -34,7 +34,7 @@ commands:
           when: on_fail
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS = $(curl --insecure https://kvdb.io/MuX1TZL2mZ5it49bKNGjiL/migration_${CIRCLE_WORKFLOW_ID:0:7})
+            SUCCESS = $(curl --insecure https://kvdb.io/EppdbyYjKMRPhphBk8Zd5K/migration_${CIRCLE_WORKFLOW_ID:0:7})
             echo $SUCCESS
             if(( $SUCCESS==1 )) 
             then
