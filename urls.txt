@@ -1,0 +1,4 @@
+Project URLS
+[URL01] Github Repo: https://github.com/Mrnaps/cdond-c3-projectstarter
+[URL02] Public S3 Bucket URL: http://udapeople-0746457.s3-website-us-east-1.amazonaws.com
+Cloudfront URL: d2agwwb7zqv356.cloudfront.net
